@@ -1,0 +1,8 @@
+[package]
+name = "custom-discord-rpc"
+version = "0.0.1"
+edition = "2021"
+
+[dependencies]
+discord-rich-presence = "0.2.5"
+dotenv = "0.15.0"
