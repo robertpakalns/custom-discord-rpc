@@ -1,26 +1,11 @@
 use discord_rich_presence::{activity, DiscordIpc, DiscordIpcClient};
-use serde::Deserialize;
 use std::{
-    fs::File,
-    io::Read,
     process::exit,
     thread::sleep,
     time::{Duration, SystemTime, UNIX_EPOCH},
 };
 
-#[derive(Deserialize)]
-struct Button {
-    label: String,
-    url: String,
-}
-
-#[derive(Deserialize)]
-struct Config {
-    client_id: String,
-    state: String,
-    details: String,
-    buttons: Vec<Button>,
-}
+mod config_helper;
 
 fn main() {
     let timestamp = SystemTime::now()
@@ -28,27 +13,7 @@ fn main() {
         .unwrap()
         .as_secs() as i64;
 
-    let mut file = match File::open("config.json") {
-        Ok(file) => file,
-        Err(_) => {
-            eprintln!("Failed to open config.json file");
-            exit(0);
-        }
-    };
-
-    let mut json_data = String::new();
-    if let Err(_) = file.read_to_string(&mut json_data) {
-        eprintln!("Failed to read config.json file");
-        exit(0);
-    }
-
-    let config: Config = match serde_json::from_str(&json_data) {
-        Ok(config) => config,
-        Err(_) => {
-            eprintln!("Failed to parse config.json file");
-            exit(0);
-        }
-    };
+    let config = config_helper::init_config("config.json".to_string());
 
     let mut client = match DiscordIpcClient::new(&config.client_id) {
         Ok(client) => client,
@@ -62,6 +27,8 @@ fn main() {
         eprintln!("Failed to connect to Discord IPC: {}", error);
         exit(0);
     }
+
+    println!("Logged in with client ID {}.", &config.client_id);
 
     let activity = activity::Activity::new()
         .state(&config.state)
