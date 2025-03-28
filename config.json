@@ -1,0 +1,15 @@
+{
+    "client_id": "1354883544240881754",
+    "state": "Developing",
+    "details": "Idling",
+    "buttons": [
+        {
+            "label": "Tricko.pro",
+            "url": "https://tricko.pro"
+        },
+        {
+            "label": "Community Server",
+            "url": "https://discord.gg/yPjrUrvSzv"
+        }
+    ]
+}

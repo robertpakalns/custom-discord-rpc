@@ -13,7 +13,8 @@ name = "custom-discord-rpc"
 version = "0.0.1"
 dependencies = [
  "discord-rich-presence",
- "dotenv",
+ "serde",
+ "serde_json",
 ]
 
 [[package]]
@@ -28,12 +29,6 @@ dependencies = [
  "serde_repr",
  "uuid",
 ]
-
-[[package]]
-name = "dotenv"
-version = "0.15.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "77c90badedccf4105eca100756a0b1289e191f6fcbdadd3cee1d2f614f97da8f"
 
 [[package]]
 name = "getrandom"
