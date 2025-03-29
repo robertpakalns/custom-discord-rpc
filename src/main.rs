@@ -13,9 +13,9 @@ fn main() {
         .unwrap()
         .as_secs() as i64;
 
-    let config = config_helper::init_config("config.json".to_string());
+    let config = config_helper::init_config("config.json");
 
-    let mut client = match DiscordIpcClient::new(&config.client_id) {
+    let mut client: DiscordIpcClient = match DiscordIpcClient::new(&config.client_id) {
         Ok(client) => client,
         Err(error) => {
             eprintln!("Failed to create Discord IPC client: {}", error);
